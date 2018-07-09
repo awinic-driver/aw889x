@@ -1,0 +1,42 @@
+/* AWINIC AW889X Smart PA */
+&i2c3 {
+	/*aw889x_smartpa@34*/
+	i2c_smartpa@34 {
+		compatible = "awinic,aw889x_smartpa";
+		/*compatible = "mediatek,i2c_smartpa";*/
+		reg = <0x34>;
+		reset-gpio = <&pio 65 0>;
+		irq-gpio = <&pio 5 0>;
+		pinctrl-names = "aw889x_rst0", "aw889x_rst1", "aw889x_eint";
+		pinctrl-0 = <&aw889x_pins_rst0>;
+		pinctrl-1 = <&aw889x_pins_rst1>;
+		pinctrl-2 = <&aw889x_pins_eint>;
+		status = "okay";
+	};
+};
+&pio {
+	aw889x_pins_rst0: aw889x@0 {
+		pins_cmd_dat {
+			pins = <PINMUX_GPIO65__FUNC_GPIO65>;
+			slew-rate = <1>; /*direction 0:in, 1:out*/
+			output-low;/*direction out used only. output_low or high*/
+		};
+	};
+
+	aw889x_pins_rst1: aw889x@1 {
+		pins_cmd_dat {
+			pins = <PINMUX_GPIO65__FUNC_GPIO65>;
+			slew-rate = <1>; /*direction 0:in, 1:out*/
+			output-high;
+		};
+	};
+
+	aw889x_pins_eint: aw889x@2 {
+		pins_cmd_dat {
+			pins = <PINMUX_GPIO5__FUNC_GPIO5>;
+			slew-rate = <0>; /*direction 0:in, 1:out*/
+			bias-disable;
+		};
+	};
+};
+/* AWINIC AW889X Smart PA End */
